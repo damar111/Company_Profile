@@ -1,0 +1,145 @@
+<?php
+require 'C:\xampp\htdocs\buyapps-project2_new\resources\view\layout\header1.php';
+require 'C:\xampp\htdocs\buyapps-project2_new\app\config\koneksi.php';
+
+//mengaktifkan session
+session_start();
+
+//proses cek apakah user sudah lofin atau belum
+if ($_SESSION['status'] != "login") {
+    header("Location: http://localhost/buyapps-project2_new/login");
+}
+
+function title()
+{
+    yield "Article | Admin";
+}
+?>
+
+
+//header1
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <title>
+        <?php foreach (title() as $judul) {
+            echo $judul;
+        } ?>
+    </title>
+    <link rel="shortcut icon" href="public/assets/img/tabIcon.png">
+</head>
+
+<body style="background-color: #3C4048; color: whitesmoke;">
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark" style="padding: 17px 80px 17px 80px;">
+        <div class="container-fluid">
+            <div class="logo">
+                <a href="home"><img src="public/assets/img/BuyApps.ID fix.png" width="80px" alt="logo"></a>
+            </div>
+            <form class="d-flex">
+                <a href="logout" class="btn btn-outline-danger">Logout</a>
+            </form>
+        </div>
+    </nav>
+    //header1
+
+<div class="container">
+
+    <div class="row">
+        <div class="col my-2">
+            <br>
+            <h2 class="fw-bold text-center">
+                <?php
+                echo "Hello, " . $_SESSION['username'];
+                ?>
+            </h2>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <p class="text-center" style="margin-top: -10px;">
+                ADMINSUPREMACY
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col my-3">
+            <br>
+            <a href="http://localhost/buyapps-project2_new/create" class="btn btn-primary"><i class="bi bi-file-earmark-plus"></i> New Article</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col my-4">
+            <table class="table table-dark table-striped my-3" id="example" style="width:100%">
+                <thead>
+                    <tr>
+                        <th scope="col">NO</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Content</th>
+                        <th scope="col">Gambar</th>
+                        <th scope="col">Option </th>
+                    </tr>
+                </thead>
+                <?php $i = 1 ?>
+                <?php foreach ($posts as $post) { ?>
+
+                    <tr>
+                        <td><?php echo $i; ?></td>
+                        <td><?php echo $post->title; ?></td>
+                        <td><?php echo $post->content; ?></td>
+                        <td>
+                            <img src="public/storage/posts/<?php echo $post->filename ?>" alt="" class="rounded" style="width: 150px">
+                        </td>
+                        <td>
+                            <a href="edit?id=<?php echo $post->id ?>" class="btn btn-warning" style="width: 100px;"><i class="bi bi-pencil-fill"></i> Edit</a><br>
+                            <a href="delete?id=<?php echo $post->id ?>" class="btn btn-outline-danger" style="margin-top: 10px; width: 100px;"><i class="bi bi-trash"></i> Delete</a>
+                        </td>
+                    </tr>
+
+                    <?php $i = $i + 1 ?>
+
+                <?php } ?>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script type="text/javascript" src="asset/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script>
+
+//footer1
+<div class="footer" style="background-color: #212529; height: 100px; padding-top: 20px; margin-top: 30px;">
+    <p style="color: lightgray; text-align: center;">©Copyright 2022</p>
+</div>
+
+</body>
+
+</html>
+
+
+<?php
+require 'C:\xampp\htdocs\buyapps-project2_new\resources\view\layout\footer1.php';
+?>

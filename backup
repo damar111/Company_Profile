@@ -1,0 +1,143 @@
+//INDEX.PHP
+<?php
+
+define('PATH_CONFIG', 'app/config/');
+define('PATH_CONTROLLER', 'app/controller/');
+define('PATH_MODEL', 'app/model/');
+define('PATH_VIEW', 'resources/view/');
+define('PATH_VENDOR', 'vendor/');
+
+// Make sure you have Composer's autoload file included
+require(PATH_VENDOR . 'autoload.php');
+
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
+/** Start Your Controller **/
+require('app/routes.php');
+
+// Start ROUTE
+$project_location = "/buyapps-project2_new";
+$me = $project_location;
+
+// For get URL PATH
+$request = $_SERVER['REQUEST_URI'];
+
+switch ($request) {
+    case $me . '/home':
+        MainController::index();
+        break;
+        // case $me . '/admin':
+        //     MainController::admin();
+        //     break;
+    case $me . '/viewarticles':
+        MainController::show_article();
+        break;
+    case $me . '/admin':
+        MainController::dashboard();
+        break;
+        // case $me . '/create':
+        //     MainController::create();
+        //     break;
+        // case $me . '/edit?id=2':
+        //     //require "resources/view/home.php";
+        //     MainController::edit();
+        //     break;
+    default:
+
+        http_response_code(404);
+        echo $request;
+        echo '===seharusnya===';
+        echo $me . '/about';
+        echo "404";
+
+        break;
+}
+//END INDEX.PHP
+
+
+
+
+
+
+
+
+//EDIT
+// <?php
+// require 'C:\xampp\htdocs\buyapps-project2_new\app\config\koneksi.php';
+
+// if ($image == null) {
+//     $id = $_POST['id'];
+//     $title = $_POST['title'];
+//     $content = $_POST['content'];
+
+//     $query = "UPDATE posts SET title = '$title', content = '$content' where id='$id'";
+//     mysqli_query($koneksi, $query);
+// } elseif ($title == null) {
+//     $id = $_POST['id'];
+//     $image = $_FILES['image']['name'];
+//     $imagename = $_FILES['image']['tmp_name'];
+//     $filename = $image;
+//     $content = $_POST['content'];
+
+//     $filedestination = 'C:/xampp/htdocs/buyapps-project2_new/public/storage/posts/' . $image;
+//     move_uploaded_file($imagename, $filedestination);
+
+//     $query = "UPDATE posts SET image = '$image', filename = '$filename', content = '$content' where id='$id'";
+//     mysqli_query($koneksi, $query);
+// } elseif ($content == null) {
+//     $id = $_POST['id'];
+//     $image = $_FILES['image']['name'];
+//     $imagename = $_FILES['image']['tmp_name'];
+//     $filename = $image;
+//     $title = $_POST['title'];
+
+//     $filedestination = 'C:/xampp/htdocs/buyapps-project2_new/public/storage/posts/' . $image;
+//     move_uploaded_file($imagename, $filedestination);
+
+//     $query = "UPDATE posts SET image = '$image', filename = '$filename', title = '$title' where id='$id'";
+//     mysqli_query($koneksi, $query);
+// } elseif ($title == null && $content == null) {
+//     $id = $_POST['id'];
+//     $image = $_FILES['image']['name'];
+//     if ($image != null) {
+//         $imagename = $_FILES['image']['tmp_name'];
+//         $filename = $image;
+
+//         $filedestination = 'C:/xampp/htdocs/buyapps-project2_new/public/storage/posts/' . $image;
+//         move_uploaded_file($imagename, $filedestination);
+
+//         $query = "UPDATE posts SET image = '$image', filename = '$filename' where id='$id'";
+//         mysqli_query($koneksi, $query);
+//     }
+// } elseif ($image == null && $content == null) {
+//     $id = $_POST['id'];
+//     $title = $_POST['title'];
+
+//     $query = "UPDATE posts SET title = '$title' where id='$id'";
+//     mysqli_query($koneksi, $query);
+// } elseif ($image == null && $title == null) {
+//     $id = $_POST['id'];
+//     $content = $_POST['content'];
+
+//     $query = "UPDATE posts SET content = '$content' where id='$id'";
+//     mysqli_query($koneksi, $query);
+// } else {
+//     $id = $_POST['id'];
+//     $image = $_FILES['image']['name'];
+//     $imagename = $_FILES['image']['tmp_name'];
+//     $filename = $image;
+//     $title = $_POST['title'];
+//     $content = $_POST['content'];
+
+//     $filedestination = 'C:/xampp/htdocs/buyapps-project2_new/public/storage/posts/' . $image;
+//     move_uploaded_file($imagename, $filedestination);
+
+//     $query = "UPDATE posts SET image = '$image', filename = '$filename', title = '$title', content = '$content' where id='$id'";
+//     mysqli_query($koneksi, $query);
+// }
+
+
+// header("Location: http://localhost/buyapps-project2_new/admin");
+// exit();
+// END EDIT
